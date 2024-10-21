@@ -1,0 +1,8 @@
+fastapi
+pydantic
+aiohttp
+python-dotenv
+psutil
+PyMuPDF
+azure-storage-blob
+uvicorn[standard]
