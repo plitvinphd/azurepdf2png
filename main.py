@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, HttpUrl
 from typing import List
 import os
@@ -16,6 +17,24 @@ from azure.storage.blob.aio import BlobServiceClient
 from azure.storage.blob import generate_blob_sas, BlobSasPermissions
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "https://yourvercelapp.vercel.app",  # Replace with your Vercel app URL
+    # Add any other origins that need to access your API
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allow these origins
+    allow_credentials=True,
+    allow_methods=["*"],    # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],    # Allow all headers
+)
+
 
 # Load environment variables
 load_dotenv()
